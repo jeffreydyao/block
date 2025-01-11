@@ -6,27 +6,32 @@
 //
 
 import SwiftUI
-import SwiftData
+import FamilyControls
 
 @main
 struct BlockApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    @StateObject private var blockSessionManager = BlockSessionManager()
+    
+    // Track if we've requested authorization already, so we don't spam the user
+    @State private var didRequestAuthorization = false
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(blockSessionManager)
+                .task {
+                           guard !didRequestAuthorization else { return }
+                           didRequestAuthorization = true
+                           
+                           do {
+                               // This call is now async in iOS 17
+                               try await AuthorizationCenter.shared.requestAuthorization(for: .individual)
+                               print("FamilyControls authorization succeeded.")
+                               // The user is a parent/guardian and has granted permission
+                           } catch {
+                               print("FamilyControls authorization failed: \(error)")
+                           }
+                       }
         }
-        .modelContainer(sharedModelContainer)
     }
 }
