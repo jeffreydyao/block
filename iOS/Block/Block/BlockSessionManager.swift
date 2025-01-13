@@ -80,10 +80,13 @@ class BlockSessionManager: NSObject, ObservableObject {
     func prepareToStartBlockSession() {
         nfcManager.beginScanning(for: .startBlock) { [weak self] success, message in
             guard let self = self else { return }
-            if success {
-                self.startBlockSession()
-            } else {
-                self.alertMessage = AlertMessage(text: message)
+            // Only update in main thread
+            DispatchQueue.main.async {
+                if success {
+                    self.startBlockSession()
+                } else {
+                    self.alertMessage = AlertMessage(text: message)
+                }
             }
         }
     }
@@ -93,10 +96,13 @@ class BlockSessionManager: NSObject, ObservableObject {
     func prepareToEndBlockSession() {
         nfcManager.beginScanning(for: .endBlock) { [weak self] success, message in
             guard let self = self else { return }
-            if success {
-                self.endBlockSession()
-            } else {
-                self.alertMessage = AlertMessage(text: message)
+            // Only update in main thread
+            DispatchQueue.main.async {
+                if success {
+                    self.endBlockSession()
+                } else {
+                    self.alertMessage = AlertMessage(text: message)
+                }
             }
         }
     }
@@ -140,6 +146,7 @@ class BlockSessionManager: NSObject, ObservableObject {
     
     /// Called at init if isBlocking was true and we have a blockStartDate
     private func restoreBlockSession(from savedDate: Date) {
+        updateTimeComponents() // Immediately calculate and set hours, minutes, and seconds
         // We do NOT overwrite the blockStartDate with Date()
         // Instead, we keep the old date so the timer remains correct
         startTimer()
@@ -226,16 +233,9 @@ class BlockSessionManager: NSObject, ObservableObject {
     
     /// Returns a string in "HH:MM:SS" showing how long the block session has been active.
     /// If not blocking, returns "00:00:00".
-    var blockTimerString: String {
-        guard let start = blockStartDate, isBlocking else {
-            return "00:00:00"
-        }
-        let elapsed = Int(Date().timeIntervalSince(start))
-        let hours = elapsed / 3600
-        let minutes = (elapsed % 3600) / 60
-        let seconds = elapsed % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-    }
+    @Published var hours: Int = 0
+    @Published var minutes: Int = 0
+    @Published var seconds: Int = 0
     
     // MARK: - ManagedSettings Shielding
     
@@ -299,9 +299,22 @@ class BlockSessionManager: NSObject, ObservableObject {
     private func startTimer() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            // Update SwiftUI views once per second
-            self.objectWillChange.send()
+            self.updateTimeComponents()
         }
+    }
+    
+    // Helper to update the individual components
+    private func updateTimeComponents() {
+        guard let start = blockStartDate, isBlocking else {
+            hours = 0
+            minutes = 0
+            seconds = 0
+            return
+        }
+        let elapsed = Int(Date().timeIntervalSince(start))
+        hours = elapsed / 3600
+        minutes = (elapsed % 3600) / 60
+        seconds = elapsed % 60
     }
     
     private func stopTimer() {

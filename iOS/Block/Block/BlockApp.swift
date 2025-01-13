@@ -32,6 +32,7 @@ struct BlockApp: App {
                                print("FamilyControls authorization failed: \(error)")
                            }
                        }
+                .tint(.white)
         }
     }
 }

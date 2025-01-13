@@ -2,7 +2,7 @@
 //  NFCManager.swift
 //  Block
 //
-//  Created by [Your Name] on [Date].
+//  Created by Jeffrey Yao on 11/01/2025.
 //
 
 import Foundation
@@ -62,11 +62,11 @@ public class NFCManager: NSObject, ObservableObject {
         let promptMessage: String
         switch operation {
         case .addBrick:
-            promptMessage = "Scan an NTAG215 to write 'Block' signature."
+            promptMessage = "Hold your iPhone near a Block to add it."
         case .startBlock:
-            promptMessage = "Scan your Block to start blocking."
+            promptMessage = "Hold your iPhone near your Block to start a session."
         case .endBlock:
-            promptMessage = "Scan your Block to end blocking."
+            promptMessage = "Hold your iPhone near your Block to end the current session."
         }
         
         // Create and begin an NFC Tag Reader Session for ISO 14443 tags (NTAG21x).
@@ -107,9 +107,9 @@ public class NFCManager: NSObject, ObservableObject {
                         session.invalidate(errorMessage: "Writing page \(secondPageNumber) failed: \(error.localizedDescription)")
                         self.completion?(false, "Writing page \(secondPageNumber) failed.")
                     case .success:
-                        session.alertMessage = "Successfully wrote 'Block' signature to the tag!"
+                        session.alertMessage = "Block added!"
                         session.invalidate()
-                        self.completion?(true, "Brick has been added!")
+                        self.completion?(true, "Block added!")
                         self.cleanupAfterOperation()
                     }
                 }

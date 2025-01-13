@@ -13,21 +13,48 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 40) {
-                // If currently blocking, show timer + "Unlock"
+                // Time elapsed
                 if blockSessionManager.isBlocking {
-                    // Show the timer in a monospaced font
-                    Text(blockSessionManager.blockTimerString)
-                        .font(.system(.largeTitle, design: .monospaced))
-                        .padding()
-                    
-                    // "Unlock" button
+                    VStack(spacing: 4) {
+                        Text("Used for")
+                            .textCase(.uppercase)
+                            .font(.system(.subheadline))
+                            .foregroundStyle(.secondary)
+                            .fontWeight(.medium)
+                        HStack(spacing: 0) {
+                            // Apply ContentTransition to each numeric component
+                            Text(String(format: "%02d", blockSessionManager.hours))
+                                .contentTransition(.numericText())
+                                .animation(.default, value: blockSessionManager.hours)
+                            Text(":")
+                            Text(String(format: "%02d", blockSessionManager.minutes))
+                                .contentTransition(.numericText())
+                                .animation(.default, value: blockSessionManager.minutes)
+                            Text(":")
+                            Text(String(format: "%02d", blockSessionManager.seconds))
+                                .contentTransition(.numericText())
+                                .animation(.default, value: blockSessionManager.seconds)
+                        }
+                        .font(.system(.title3, design: .monospaced))
+                        .fontWeight(.semibold)
+                    }
+                }
+                
+                Spacer()
+                
+                
+                // Lock / Unlock
+                if blockSessionManager.isBlocking {
                     Button(action: {
                         blockSessionManager.prepareToEndBlockSession()
                     }) {
                         Text("Unlock")
                             .font(.title2)
-                            .padding()
+                            .fontWeight(.medium)
                     }
+                    .buttonBorderShape(.capsule)
+                    .buttonStyle(.bordered)
+                    .controlSize(.large)
                 }
                 // If NOT blocking, show "Block distractions"
                 else {
@@ -36,19 +63,21 @@ struct MainView: View {
                     }) {
                         Text("Block distractions")
                             .font(.title2)
-                            .padding()
+                            .fontWeight(.medium)
                     }
+                    .buttonBorderShape(.capsule)
+                    .buttonStyle(.bordered)
+                    .controlSize(.large)
                 }
                 
                 Spacer()
                 
                 // Navigation to SettingsView
                 NavigationLink("Settings", destination: SettingsView())
-                    .font(.callout)
-                    .padding(.bottom, 16)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
             }
             .padding()
-            .navigationTitle("Block")
             // Show an alert if there's a message
             .alert(item: $blockSessionManager.alertMessage) { msg in
                 Alert(title: Text(msg.text))
@@ -62,4 +91,5 @@ struct MainView: View {
 #Preview {
     MainView()
         .environmentObject(BlockSessionManager())
+        .tint(.white)
 }

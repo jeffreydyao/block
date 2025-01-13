@@ -16,29 +16,32 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                // Add Brick
-                Section {
-                    Button("Add Brick") {
+            Form {
+                Section() {
+                    Button("Add Block") {
                         blockSessionManager.addBrick()
                     }
                     // Disable when a block session is active (so users can’t circumvent blocking)
                     .disabled(blockSessionManager.isBlocking)
-                }
-                
-                // Manage distracting apps (opens FamilyActivityPicker)
-                Section {
-                    Button("Manage distracting apps") {
-                        blockSessionManager.manageDistractingApps()
+                } footer: {
+                    VStack(alignment: .leading) {
+                        Text("Blocks are physical objects with a NFC tag, which can be used to start and stop block sessions.")
+                        Spacer()
+                        Text("NTAG21x series NFC tags are supported for use with Block.")
                     }
                 }
                 
-                // Emergency unblock (developer tool; remove in production)
-                Section {
-                    Button(role: .destructive) {
+                Section() {
+                    Button("Choose apps to block") {
+                        blockSessionManager.manageDistractingApps()
+                    }
+                } footer: {
+                    Text("Selected apps can't be accessed during block sessions. Uninstalling the app won't bypass this!")
+                }
+                
+                Section() {
+                    Button("Emergency unblock", role: .destructive) {
                         blockSessionManager.emergencyUnblock()
-                    } label: {
-                        Text("Emergency unblock")
                     }
                 }
             }
@@ -46,26 +49,26 @@ struct SettingsView: View {
         }
         // Present the FamilyActivityPicker when needed
         .sheet(isPresented: $blockSessionManager.isShowingFamilyActivityPicker) {
-            VStack(spacing: 16) {
-                Text("Select apps you want to block")
-                    .font(.headline)
-                    .padding(.top, 16)
-                
+            NavigationView {
                 FamilyActivityPicker(selection: $blockSessionManager.familyActivitySelection)
-                    .padding(.horizontal, 16)
-                
-                Button("OK") {
-                    // Persist and dismiss
-                    blockSessionManager.storeSelectedApps()
-                    blockSessionManager.isShowingFamilyActivityPicker = false
-                }
-                .font(.title2)
-                .padding()
-                
-                // Optionally allow swipe to dismiss. If you want to disable it:
-                // .interactiveDismissDisabled(true)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle("Choose apps to block")
+                    .toolbar() {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button("Cancel") {
+                                blockSessionManager.isShowingFamilyActivityPicker = false
+                            }
+                        }
+                        
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Save") {
+                                // Persist and dismiss
+                                blockSessionManager.storeSelectedApps()
+                                blockSessionManager.isShowingFamilyActivityPicker = false
+                            }
+                        }
+                    }
             }
-            .presentationDetents([.medium, .large])  // iOS 16+; optional
         }
     }
 }
