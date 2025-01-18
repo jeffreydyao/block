@@ -50,8 +50,10 @@ struct TimerView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     PreviewContainer {
         TimerView()
     }
 }
+#endif

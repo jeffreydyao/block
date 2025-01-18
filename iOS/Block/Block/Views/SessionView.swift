@@ -77,8 +77,10 @@ struct SessionView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     PreviewContainer(session: .previewActive) {
         SessionView()
     }
 }
+#endif

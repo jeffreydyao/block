@@ -76,8 +76,10 @@ struct SettingsView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     PreviewContainer {
         SettingsView()
     }
 }
+#endif

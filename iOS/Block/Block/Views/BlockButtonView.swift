@@ -164,7 +164,8 @@ struct BlockButtonView: View {
 }
 
 
-
+#if DEBUG
 #Preview {
     BlockButtonView(onAction: { event in print(event) })
 }
+#endif

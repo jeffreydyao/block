@@ -37,8 +37,10 @@ extension Color {
     }
 }
 
+#if DEBUG
 #Preview {
     PreviewContainer {
         ContentView()
     }
 }
+#endif
