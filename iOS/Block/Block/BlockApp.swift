@@ -14,6 +14,8 @@ struct BlockApp: App {
     
     // Track if we've requested authorization already, so we don't spam the user
     @State private var didRequestAuthorization = false
+    
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some Scene {
         WindowGroup {
@@ -32,7 +34,7 @@ struct BlockApp: App {
                                print("FamilyControls authorization failed: \(error)")
                            }
                        }
-                .tint(.white)
+                .tint(colorScheme == .dark ? .white : .black)
         }
     }
 }

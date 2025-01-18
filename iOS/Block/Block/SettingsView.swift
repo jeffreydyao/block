@@ -35,6 +35,8 @@ struct SettingsView: View {
                     Button("Choose apps to block") {
                         blockSessionManager.manageDistractingApps()
                     }
+                    // Disable when a block session is active (so users can’t circumvent blocking)
+                    .disabled(blockSessionManager.isBlocking)
                 } footer: {
                     Text("Selected apps can't be accessed during block sessions. Uninstalling the app won't bypass this!")
                 }

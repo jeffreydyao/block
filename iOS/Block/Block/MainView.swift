@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var blockSessionManager: BlockSessionManager
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         NavigationView {
@@ -55,19 +56,19 @@ struct MainView: View {
                     .buttonBorderShape(.capsule)
                     .buttonStyle(.bordered)
                     .controlSize(.large)
+                    .tint(colorScheme == .dark ? .white : .black)
                 }
                 // If NOT blocking, show "Block distractions"
                 else {
-                    Button(action: {
-                        blockSessionManager.prepareToStartBlockSession()
-                    }) {
-                        Text("Block distractions")
-                            .font(.title2)
-                            .fontWeight(.medium)
+                    BlockButton(onAction: {
+                        event in
+                        if event == .tap {
+                            blockSessionManager.prepareToStartBlockSession()
+                        } else if event == .hold {
+                            blockSessionManager.startBlockSession()
+                        }
                     }
-                    .buttonBorderShape(.capsule)
-                    .buttonStyle(.bordered)
-                    .controlSize(.large)
+                    )
                 }
                 
                 Spacer()
