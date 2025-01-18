@@ -16,7 +16,7 @@ enum BlockButtonEvent {
     case hold
 }
 
-struct BlockButton: View {
+struct BlockButtonView: View {
     @Environment(\.colorScheme) var colorScheme
     
     // MARK: - Properties
@@ -166,5 +166,5 @@ struct BlockButton: View {
 
 
 #Preview {
-    BlockButton(onAction: { event in print(event) })
+    BlockButtonView(onAction: { event in print(event) })
 }
