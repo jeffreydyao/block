@@ -50,36 +50,6 @@
             endingLineNumber = "40"
             landmarkName = "start(trigger:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F1FF821D-F759-472D-BF45-0CF108C3EEE7 - 94b2e9714cda88c6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for Block.SessionService.start(trigger: Block.SessionTrigger) async throws -&gt; ()"
-                  moduleName = "Block.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jeffrey/code/block/iOS/Block/Block/Services/SessionService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40">
-               </Location>
-               <Location
-                  uuid = "F1FF821D-F759-472D-BF45-0CF108C3EEE7 - 8b2d4a00691d4cc4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for Block.SessionService.start(trigger: Block.SessionTrigger) async throws -&gt; ()"
-                  moduleName = "Block.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jeffrey/code/block/iOS/Block/Block/Services/SessionService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "40"
-                  endingLineNumber = "40">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -96,36 +66,6 @@
             endingLineNumber = "43"
             landmarkName = "start(trigger:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EFC89195-0E20-41F3-BA0D-BC306ACED00F - 94b2e9714cda887b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for Block.SessionService.start(trigger: Block.SessionTrigger) async throws -&gt; ()"
-                  moduleName = "Block.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jeffrey/code/block/iOS/Block/Block/Services/SessionService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "43"
-                  endingLineNumber = "43">
-               </Location>
-               <Location
-                  uuid = "EFC89195-0E20-41F3-BA0D-BC306ACED00F - 8b2d4a00691d4c79"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for Block.SessionService.start(trigger: Block.SessionTrigger) async throws -&gt; ()"
-                  moduleName = "Block.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jeffrey/code/block/iOS/Block/Block/Services/SessionService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "43"
-                  endingLineNumber = "43">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
