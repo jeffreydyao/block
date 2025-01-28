@@ -9,6 +9,8 @@ import SwiftUI
 import ManagedSettings
 
 struct ContentView: View {
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -25,22 +27,12 @@ struct ContentView: View {
                 .padding(.bottom)
             }
         }
-        .tint(Color.adaptive)
+        .tint(colorScheme == .dark ? .white : .black)
     }
 }
 
-// Helper for dynamic color based on color scheme
-extension Color {
-    static var adaptive: Color {
-        @Environment(\.colorScheme) var colorScheme
-        return colorScheme == .dark ? .white : .black
-    }
-}
-
-#if DEBUG
 #Preview {
     PreviewContainer {
         ContentView()
     }
 }
-#endif
