@@ -10,6 +10,17 @@ import SwiftUI
 import ManagedSettings
 import FamilyControls
 
+enum SessionError: LocalizedError {
+    case alreadyActive
+    
+    var errorDescription: String? {
+        switch self {
+        case .alreadyActive:
+            return "A session is already active."
+        }
+    }
+}
+
 class SessionService {
     // MARK: - Dependencies
     private let store: ManagedSettingsStore
@@ -34,6 +45,9 @@ class SessionService {
     func start(
         trigger: SessionTrigger
     ) async throws {
+        if session.isActive {
+            throw SessionError.alreadyActive
+        }
         if trigger == .nfc {
             try await nfcService.scan(for: .startBlock)
         }
