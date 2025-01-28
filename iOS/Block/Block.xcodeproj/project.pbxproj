@@ -10,9 +10,22 @@
 		0090F8E12D324DE700B0A0D9 /* Block.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Block.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		008ED57F2D48E4BE007DC509 /* Exceptions for "Block" folder in "Block" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0090F8E02D324DE700B0A0D9 /* Block */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0090F8E32D324DE700B0A0D9 /* Block */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				008ED57F2D48E4BE007DC509 /* Exceptions for "Block" folder in "Block" target */,
+			);
 			path = Block;
 			sourceTree = "<group>";
 		};
@@ -257,7 +270,7 @@
 				DEVELOPMENT_TEAM = C79AZJC924;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = Block/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Block uses NFC to add and scan Blocks.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -292,7 +305,7 @@
 				DEVELOPMENT_TEAM = C79AZJC924;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = Block/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Block uses NFC to add and scan Blocks.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

@@ -31,8 +31,8 @@ class NFCService: NSObject {
     
     private var session: NFCTagReaderSession?
     private var currentOperation: Operation?
-    private var completion: ((Result<Void, Error>) -> Void)?
-    
+    private var continuation: CheckedContinuation<Void, Error>?
+
     // MARK: - Public Interface
     
     /// Scans for an NFC tag and performs the specified operation
@@ -41,44 +41,40 @@ class NFCService: NSObject {
             throw NFCError.unavailable
         }
         
-        try await withCheckedThrowingContinuation { continuation in
-            beginScanning(for: operation) { result in
-                continuation.resume(with: result)
-            }
+        return try await withCheckedThrowingContinuation { continuation in
+            // Keep a reference to our continuation so we can resume it later
+            self.continuation = continuation
+            self.beginScanning(for: operation)
         }
     }
     
     // MARK: - Private Methods
     
-    private func beginScanning(
-        for operation: Operation,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
+    private func beginScanning(for operation: Operation) {
         currentOperation = operation
-        self.completion = completion
         
-        session = NFCTagReaderSession(
-            pollingOption: .iso14443,
-            delegate: self
-        )
+        session = NFCTagReaderSession(pollingOption: .iso14443, delegate: self)
         session?.alertMessage = operation.prompt
         session?.begin()
     }
     
     private func handleTag(_ tag: NFCTag, in session: NFCTagReaderSession) {
-        guard case let .miFare(tag) = tag else {
-            session.invalidate(errorMessage: "Unsupported tag type")
-            completion?(.failure(NFCError.invalidTag))
+        guard case let .miFare(miFareTag) = tag else {
+            // If we call .invalidate(errorMessage:), Core NFC will later call
+            // `didInvalidateWithError` with an error. We should resume the continuation
+            // ourselves here—before that delegate call occurs—to avoid double resume.
+            failAndInvalidateSession(session, with: NFCError.invalidTag, message: "Unsupported tag type")
             return
         }
         
+        // Handle the actual operation
         switch currentOperation {
         case .addBlock:
-            writeBrickSignature(to: tag, in: session)
+            writeBrickSignature(to: miFareTag, in: session)
         case .startBlock, .endBlock:
-            verifyBrickSignature(from: tag, in: session)
+            verifyBrickSignature(from: miFareTag, in: session)
         case .none:
-            session.invalidate(errorMessage: "No operation specified")
+            failAndInvalidateSession(session, with: NFCError.invalidTag, message: "No operation specified")
         }
     }
     
@@ -93,11 +89,11 @@ class NFCService: NSObject {
             do {
                 try await writePages(signature, to: tag, startingAt: startPage)
                 session.alertMessage = "Block added successfully"
-                session.invalidate()
-                completion?(.success(()))
+                
+                // Succeed and end the session
+                succeedAndInvalidateSession(session)
             } catch {
-                session.invalidate(errorMessage: "Failed to write signature")
-                completion?(.failure(error))
+                failAndInvalidateSession(session, with: error, message: "Failed to write signature")
             }
         }
     }
@@ -109,19 +105,19 @@ class NFCService: NSObject {
         Task {
             do {
                 let data = try await readPages(from: tag, startPage: 4, count: 2)
-                if data == BlockConstants.blockTagSignature {
-                    session.alertMessage = "Block verified"
-                    session.invalidate()
-                    completion?(.success(()))
-                } else {
+                guard data == BlockConstants.blockTagSignature else {
                     throw NFCError.verificationFailed
                 }
+                
+                session.alertMessage = "Block verified"
+                succeedAndInvalidateSession(session)
+                
             } catch {
-                session.invalidate(errorMessage: "Verification failed")
-                completion?(.failure(error))
+                failAndInvalidateSession(session, with: error, message: "Verification failed")
             }
         }
     }
+    
     
     private func writePages(
         _ data: Data,
@@ -166,15 +162,22 @@ class NFCService: NSObject {
 // MARK: - NFCTagReaderSessionDelegate
 
 extension NFCService: NFCTagReaderSessionDelegate {
-    func tagReaderSessionDidBecomeActive(_ session: NFCTagReaderSession) {}
+    func tagReaderSessionDidBecomeActive(_ session: NFCTagReaderSession) {
+        // do nothing
+    }
     
     func tagReaderSession(
         _ session: NFCTagReaderSession,
         didInvalidateWithError error: Error
     ) {
+        // If we haven't resumed yet, do so now with an error.
+        // (This will happen if the user taps "Cancel" or
+        // if iOS forcibly invalidates the session.)
         self.session = nil
-        completion?(.failure(error))
-        completion = nil
+        guard let continuation = continuation else { return }
+        self.continuation = nil
+        
+        continuation.resume(throwing: error)
     }
     
     func tagReaderSession(
@@ -185,12 +188,41 @@ extension NFCService: NFCTagReaderSessionDelegate {
         
         session.connect(to: tag) { [weak self] error in
             if let error {
-                session.invalidate(errorMessage: error.localizedDescription)
-                self?.completion?(.failure(error))
+                // e.g. a connection failure
+                self?.failAndInvalidateSession(session, with: error, message: error.localizedDescription)
                 return
             }
             
             self?.handleTag(tag, in: session)
         }
+    }
+}
+
+// MARK: - Helpers
+
+private extension NFCService {
+    
+    func succeedAndInvalidateSession(_ session: NFCTagReaderSession) {
+        // Resume the continuation first (with success).
+        // Then call invalidate() so that any subsequent
+        // didInvalidateWithError sees that continuation == nil
+        // and won't attempt to resume it again.
+        if let continuation = continuation {
+            self.continuation = nil
+            continuation.resume(returning: ())
+        }
+        session.invalidate()
+    }
+    
+    func failAndInvalidateSession(
+        _ session: NFCTagReaderSession,
+        with error: Error,
+        message: String
+    ) {
+        if let continuation = continuation {
+            self.continuation = nil
+            continuation.resume(throwing: error)
+        }
+        session.invalidate(errorMessage: message)
     }
 }
