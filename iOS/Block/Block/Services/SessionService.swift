@@ -10,6 +10,7 @@ import SwiftUI
 import ManagedSettings
 import FamilyControls
 
+
 enum SessionError: LocalizedError {
     case alreadyActive
     
@@ -51,6 +52,7 @@ class SessionService {
         if trigger == .nfc {
             try await nfcService.scan(for: .startBlock)
         }
+        print("start")
         session.isActive = true
         session.startDate = Date()
         session.trigger = trigger
