@@ -64,6 +64,8 @@ struct BlockApp: App {
                     AppDependencyManager.shared.add(dependency: sessionService)
                     /// Register app shortcuts.
                     BlockShortcuts.updateAppShortcutParameters()
+                    
+                    /// If session active from before, start live activity.
                 }
                 .onChange(
                     of: scenePhase

@@ -6,11 +6,59 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		002C2B9D2D4A52EF00F22D88 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002C2B9C2D4A52EF00F22D88 /* WidgetKit.framework */; };
+		002C2B9F2D4A52EF00F22D88 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002C2B9E2D4A52EF00F22D88 /* SwiftUI.framework */; };
+		002C2BB02D4A52F000F22D88 /* BlockWidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 002C2B9A2D4A52EF00F22D88 /* BlockWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		002C2BAE2D4A52F000F22D88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0090F8D92D324DE700B0A0D9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 002C2B992D4A52EF00F22D88;
+			remoteInfo = BlockWidgetExtensionExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		002C2BB52D4A52F000F22D88 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				002C2BB02D4A52F000F22D88 /* BlockWidgetExtensionExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		002C2B9A2D4A52EF00F22D88 /* BlockWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BlockWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		002C2B9C2D4A52EF00F22D88 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		002C2B9E2D4A52EF00F22D88 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		0090F8E12D324DE700B0A0D9 /* Block.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Block.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		00A72C842D4B61C90021E755 /* BlockWidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlockWidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		002C2BB42D4A52F000F22D88 /* Exceptions for "BlockWidgetExtension" folder in "BlockWidgetExtensionExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 002C2B992D4A52EF00F22D88 /* BlockWidgetExtensionExtension */;
+		};
+		002C2BB92D4A67CC00F22D88 /* Exceptions for "Block" folder in "BlockWidgetExtensionExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/SessionAttributes.swift,
+			);
+			target = 002C2B992D4A52EF00F22D88 /* BlockWidgetExtensionExtension */;
+		};
 		008ED57F2D48E4BE007DC509 /* Exceptions for "Block" folder in "Block" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -21,10 +69,19 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		002C2BA02D4A52EF00F22D88 /* BlockWidgetExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				002C2BB42D4A52F000F22D88 /* Exceptions for "BlockWidgetExtension" folder in "BlockWidgetExtensionExtension" target */,
+			);
+			path = BlockWidgetExtension;
+			sourceTree = "<group>";
+		};
 		0090F8E32D324DE700B0A0D9 /* Block */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				008ED57F2D48E4BE007DC509 /* Exceptions for "Block" folder in "Block" target */,
+				002C2BB92D4A67CC00F22D88 /* Exceptions for "Block" folder in "BlockWidgetExtensionExtension" target */,
 			);
 			path = Block;
 			sourceTree = "<group>";
@@ -32,6 +89,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		002C2B972D4A52EF00F22D88 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				002C2B9F2D4A52EF00F22D88 /* SwiftUI.framework in Frameworks */,
+				002C2B9D2D4A52EF00F22D88 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0090F8DE2D324DE700B0A0D9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -42,10 +108,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		002C2B9B2D4A52EF00F22D88 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				002C2B9C2D4A52EF00F22D88 /* WidgetKit.framework */,
+				002C2B9E2D4A52EF00F22D88 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		0090F8D82D324DE700B0A0D9 = {
 			isa = PBXGroup;
 			children = (
+				00A72C842D4B61C90021E755 /* BlockWidgetExtensionExtension.entitlements */,
 				0090F8E32D324DE700B0A0D9 /* Block */,
+				002C2BA02D4A52EF00F22D88 /* BlockWidgetExtension */,
+				002C2B9B2D4A52EF00F22D88 /* Frameworks */,
 				0090F8E22D324DE700B0A0D9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				0090F8E12D324DE700B0A0D9 /* Block.app */,
+				002C2B9A2D4A52EF00F22D88 /* BlockWidgetExtensionExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +140,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		002C2B992D4A52EF00F22D88 /* BlockWidgetExtensionExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 002C2BB12D4A52F000F22D88 /* Build configuration list for PBXNativeTarget "BlockWidgetExtensionExtension" */;
+			buildPhases = (
+				002C2B962D4A52EF00F22D88 /* Sources */,
+				002C2B972D4A52EF00F22D88 /* Frameworks */,
+				002C2B982D4A52EF00F22D88 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				002C2BA02D4A52EF00F22D88 /* BlockWidgetExtension */,
+			);
+			name = BlockWidgetExtensionExtension;
+			packageProductDependencies = (
+			);
+			productName = BlockWidgetExtensionExtension;
+			productReference = 002C2B9A2D4A52EF00F22D88 /* BlockWidgetExtensionExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		0090F8E02D324DE700B0A0D9 /* Block */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0090F8F12D324DE900B0A0D9 /* Build configuration list for PBXNativeTarget "Block" */;
@@ -68,10 +169,12 @@
 				0090F8DD2D324DE700B0A0D9 /* Sources */,
 				0090F8DE2D324DE700B0A0D9 /* Frameworks */,
 				0090F8DF2D324DE700B0A0D9 /* Resources */,
+				002C2BB52D4A52F000F22D88 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				002C2BAF2D4A52F000F22D88 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				0090F8E32D324DE700B0A0D9 /* Block */,
@@ -93,6 +196,9 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					002C2B992D4A52EF00F22D88 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					0090F8E02D324DE700B0A0D9 = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -113,11 +219,19 @@
 			projectRoot = "";
 			targets = (
 				0090F8E02D324DE700B0A0D9 /* Block */,
+				002C2B992D4A52EF00F22D88 /* BlockWidgetExtensionExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		002C2B982D4A52EF00F22D88 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0090F8DF2D324DE700B0A0D9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +242,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		002C2B962D4A52EF00F22D88 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0090F8DD2D324DE700B0A0D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,7 +258,75 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		002C2BAF2D4A52F000F22D88 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 002C2B992D4A52EF00F22D88 /* BlockWidgetExtensionExtension */;
+			targetProxy = 002C2BAE2D4A52F000F22D88 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		002C2BB22D4A52F000F22D88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = BlockWidgetExtensionExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C79AZJC924;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BlockWidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BlockWidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = jeffreyyao.Block.BlockWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		002C2BB32D4A52F000F22D88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = BlockWidgetExtensionExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C79AZJC924;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BlockWidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BlockWidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = jeffreyyao.Block.BlockWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		0090F8EF2D324DE900B0A0D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -273,6 +462,7 @@
 				INFOPLIST_FILE = Block/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Block uses NFC to add and scan Blocks.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -308,6 +498,7 @@
 				INFOPLIST_FILE = Block/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Block uses NFC to add and scan Blocks.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -330,6 +521,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		002C2BB12D4A52F000F22D88 /* Build configuration list for PBXNativeTarget "BlockWidgetExtensionExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				002C2BB22D4A52F000F22D88 /* Debug */,
+				002C2BB32D4A52F000F22D88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0090F8DC2D324DE700B0A0D9 /* Build configuration list for PBXProject "Block" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
